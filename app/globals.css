@@ -1,0 +1,122 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 210 20% 8%;
+    --foreground: 210 40% 98%;
+    --card: 210 20% 8%;
+    --card-foreground: 210 40% 98%;
+    --popover: 210 20% 8%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground transition-colors duration-300;
+    font-family: "Inter", system-ui, sans-serif;
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply backdrop-blur-xl bg-white/10 dark:bg-black/20 border border-white/20 dark:border-white/10 rounded-3xl shadow-2xl hover:shadow-2xl hover:bg-white/15 dark:hover:bg-black/30 transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02];
+  }
+
+  .glass-button {
+    @apply backdrop-blur-md bg-white/10 dark:bg-black/20 hover:bg-white/20 dark:hover:bg-black/30 transition-all duration-300;
+  }
+
+  .neuro-card {
+    @apply p-8 rounded-3xl bg-gradient-to-br from-white/20 to-white/5 dark:from-black/30 dark:to-black/10 backdrop-blur-sm border border-white/10 dark:border-white/5 shadow-lg hover:shadow-xl transition-all duration-300;
+  }
+
+  .recommendation-card {
+    @apply backdrop-blur-xl bg-white/15 dark:bg-black/25 border border-white/20 dark:border-white/10 rounded-2xl p-6 hover:bg-white/20 dark:hover:bg-black/35 transition-all duration-300 hover:scale-[1.02];
+  }
+
+  .animate-fade-in {
+    animation: fade-in 0.8s ease-out;
+  }
+
+  .dark-gradient-bg {
+    background: linear-gradient(135deg, #001122 0%, #003344 25%, #004455 50%, #002233 75%, #001122 100%);
+  }
+}
+
+/* Dark mode background improvements */
+.dark {
+  background: linear-gradient(135deg, #001122 0%, #002233 25%, #003344 50%, #002233 75%, #001122 100%);
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 95, 115, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 95, 115, 0.7);
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(0, 95, 115, 0.7);
+}
