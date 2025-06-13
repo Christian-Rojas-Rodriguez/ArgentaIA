@@ -1,0 +1,13 @@
+{"timestamp":"2025-06-13T12:14:28.146934","level":"[31mERROR[0m","logger":"yfinance","message":"$IRCP: possibly delisted; no price data found  (period=6mo) (Yahoo error = \"No data found, symbol may be delisted\")","module":"history","function":"history","line":"252"}
+{"timestamp":"2025-06-13T12:46:50.268965","level":"[31mERROR[0m","logger":"argenta_ia.main","message":"Error analizando YPF: 1 validation error for TickerAnalysis
+financial_ratios
+  Input should be a valid dictionary [type=dict_type, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.11/v/dict_type","module":"main","function":"get_ticker_analysis","line":"83"}
+{"timestamp":"2025-06-13T14:22:31.984763","level":"[31mERROR[0m","logger":"asyncio","message":"Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x16c1044c0>","module":"client","function":"__del__","line":"457"}
+{"timestamp":"2025-06-13T14:22:31.991770","level":"[31mERROR[0m","logger":"asyncio","message":"Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x16c4959f0>","module":"client","function":"__del__","line":"457"}
+{"timestamp":"2025-06-13T14:22:31.991897","level":"[31mERROR[0m","logger":"asyncio","message":"Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x31e02dc30>","module":"client","function":"__del__","line":"457"}
+{"timestamp":"2025-06-13T14:23:32.581362","level":"[31mERROR[0m","logger":"yfinance","message":"$IRCP: possibly delisted; no price data found  (period=6mo) (Yahoo error = \"No data found, symbol may be delisted\")","module":"history","function":"history","line":"252"}
+{"timestamp":"2025-06-13T14:35:46.828998","level":"[31mERROR[0m","logger":"yfinance","message":"$IRCP: possibly delisted; no price data found  (period=6mo) (Yahoo error = \"No data found, symbol may be delisted\")","module":"history","function":"history","line":"252"}
