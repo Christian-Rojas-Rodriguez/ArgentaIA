@@ -47,6 +47,12 @@ export default function LandingPage() {
             Herramientas simples, inversiones confiables y cero complicaciones — todo lo que necesitas para invertir con
             confianza mes a mes.
           </p>
+          <Link href="/recomendaciones">
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg font-medium rounded-xl">
+              Ver recomendaciones
+              <ArrowRight className="ml-2 w-5 h-5" />
+            </Button>
+          </Link>
         </div>
       </section>
 
@@ -127,22 +133,6 @@ export default function LandingPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-16 px-6 bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">Comienza a invertir hoy mismo</h2>
-          <p className="text-xl text-gray-600 dark:text-gray-300 mb-8">
-            Sin montos mínimos. Sin conocimientos previos. Solo inversiones simples y seguras.
-          </p>
-          <Link href="/recomendaciones">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-6 text-lg font-medium rounded-xl">
-              Ver recomendaciones
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
-          </Link>
         </div>
       </section>
 

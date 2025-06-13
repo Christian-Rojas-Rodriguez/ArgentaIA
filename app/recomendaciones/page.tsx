@@ -1,125 +1,152 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { ArrowLeft, TrendingUp, TrendingDown, Shield, AlertTriangle, Star, PiggyBank, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import type { StockRecommendation, BondRecommendation } from "@/lib/api"
 
-// Datos simulados de acciones argentinas para principiantes
-const stocksData = [
-  {
-    symbol: "CEDEAR AAPL",
-    name: "Apple Inc.",
-    price: 12500.5,
-    change: 125.3,
-    changePercent: 1.01,
-    recommendation: "COMPRAR",
-    confidence: 92,
-    sector: "Tecnología",
-    risk: "Bajo",
-    targetPrice: 13200.0,
-    monthlyInvestment: "$1,000",
-  },
-  {
-    symbol: "CEDEAR MSFT",
-    name: "Microsoft Corporation",
-    price: 11250.0,
-    change: 85.5,
-    changePercent: 0.76,
-    recommendation: "COMPRAR",
-    confidence: 90,
-    sector: "Tecnología",
-    risk: "Bajo",
-    targetPrice: 12000.0,
-    monthlyInvestment: "$1,000",
-  },
-  {
-    symbol: "CEDEAR KO",
-    name: "Coca-Cola Company",
-    price: 6890.75,
-    change: 45.25,
-    changePercent: 0.66,
-    recommendation: "COMPRAR",
-    confidence: 85,
-    sector: "Consumo",
-    risk: "Bajo",
-    targetPrice: 7200.0,
-    monthlyInvestment: "$800",
-  },
-  {
-    symbol: "CEDEAR PG",
-    name: "Procter & Gamble",
-    price: 8425.3,
-    change: 28.7,
-    changePercent: 0.34,
-    recommendation: "MANTENER",
-    confidence: 78,
-    sector: "Consumo",
-    risk: "Bajo",
-    targetPrice: 8600.0,
-    monthlyInvestment: "$800",
-  },
-  {
-    symbol: "CEDEAR JNJ",
-    name: "Johnson & Johnson",
-    price: 7150.0,
-    change: -25.0,
-    changePercent: -0.35,
-    recommendation: "MANTENER",
-    confidence: 75,
-    sector: "Salud",
-    risk: "Bajo",
-    targetPrice: 7300.0,
-    monthlyInvestment: "$700",
-  },
-]
-
-// Datos simulados de bonos argentinos para principiantes
-const bondsData = [
-  {
-    symbol: "TX26",
-    name: "Bono del Tesoro 2026",
-    price: 98.25,
-    change: 0.15,
-    changePercent: 0.15,
-    recommendation: "COMPRAR",
-    confidence: 88,
-    yield: 8.5,
-    duration: 2.5,
-    risk: "Medio-Bajo",
-    monthlyInvestment: "$1,500",
-  },
-  {
-    symbol: "TO23",
-    name: "Bono del Tesoro 2023",
-    price: 99.8,
-    change: 0.05,
-    changePercent: 0.05,
-    recommendation: "COMPRAR",
-    confidence: 92,
-    yield: 7.2,
-    duration: 0.8,
-    risk: "Bajo",
-    monthlyInvestment: "$2,000",
-  },
-  {
-    symbol: "LECAP",
-    name: "Letras Capitalizables",
-    price: 99.9,
-    change: 0.02,
-    changePercent: 0.02,
-    recommendation: "COMPRAR",
-    confidence: 95,
-    yield: 6.8,
-    duration: 0.5,
-    risk: "Muy Bajo",
-    monthlyInvestment: "$2,500",
-  },
-]
-
+// Reemplazar los datos simulados con estados y useEffect para cargar datos de la API
 export default function RecomendacionesPage() {
   const [activeTab, setActiveTab] = useState<"acciones" | "bonos">("acciones")
+  const [stocksData, setStocksData] = useState<StockRecommendation[]>([])
+  const [bondsData, setBondsData] = useState<BondRecommendation[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        setIsLoading(true)
+        setError(null)
+
+        // En producción, descomentar estas líneas para usar la API real
+        // const stocks = await getStockRecommendations()
+        // const bonds = await getBondRecommendations()
+        // setStocksData(stocks)
+        // setBondsData(bonds)
+
+        // Datos simulados para desarrollo (eliminar en producción)
+        setStocksData([
+          {
+            symbol: "CEDEAR AAPL",
+            name: "Apple Inc.",
+            price: 12500.5,
+            change: 125.3,
+            changePercent: 1.01,
+            recommendation: "COMPRAR",
+            confidence: 92,
+            sector: "Tecnología",
+            risk: "Bajo",
+            targetPrice: 13200.0,
+            monthlyInvestment: "$1,000",
+          },
+          {
+            symbol: "CEDEAR MSFT",
+            name: "Microsoft Corporation",
+            price: 11250.0,
+            change: 85.5,
+            changePercent: 0.76,
+            recommendation: "COMPRAR",
+            confidence: 90,
+            sector: "Tecnología",
+            risk: "Bajo",
+            targetPrice: 12000.0,
+            monthlyInvestment: "$1,000",
+          },
+          {
+            symbol: "CEDEAR KO",
+            name: "Coca-Cola Company",
+            price: 6890.75,
+            change: 45.25,
+            changePercent: 0.66,
+            recommendation: "COMPRAR",
+            confidence: 85,
+            sector: "Consumo",
+            risk: "Bajo",
+            targetPrice: 7200.0,
+            monthlyInvestment: "$800",
+          },
+          {
+            symbol: "CEDEAR PG",
+            name: "Procter & Gamble",
+            price: 8425.3,
+            change: 28.7,
+            changePercent: 0.34,
+            recommendation: "MANTENER",
+            confidence: 78,
+            sector: "Consumo",
+            risk: "Bajo",
+            targetPrice: 8600.0,
+            monthlyInvestment: "$800",
+          },
+          {
+            symbol: "CEDEAR JNJ",
+            name: "Johnson & Johnson",
+            price: 7150.0,
+            change: -25.0,
+            changePercent: -0.35,
+            recommendation: "MANTENER",
+            confidence: 75,
+            sector: "Salud",
+            risk: "Bajo",
+            targetPrice: 7300.0,
+            monthlyInvestment: "$700",
+          },
+        ])
+
+        setBondsData([
+          {
+            symbol: "TX26",
+            name: "Bono del Tesoro 2026",
+            price: 98.25,
+            change: 0.15,
+            changePercent: 0.15,
+            recommendation: "COMPRAR",
+            confidence: 88,
+            yield: 8.5,
+            duration: 2.5,
+            risk: "Medio-Bajo",
+            monthlyInvestment: "$1,500",
+          },
+          {
+            symbol: "TO23",
+            name: "Bono del Tesoro 2023",
+            price: 99.8,
+            change: 0.05,
+            changePercent: 0.05,
+            recommendation: "COMPRAR",
+            confidence: 92,
+            yield: 7.2,
+            duration: 0.8,
+            risk: "Bajo",
+            monthlyInvestment: "$2,000",
+          },
+          {
+            symbol: "LECAP",
+            name: "Letras Capitalizables",
+            price: 99.9,
+            change: 0.02,
+            changePercent: 0.02,
+            recommendation: "COMPRAR",
+            confidence: 95,
+            yield: 6.8,
+            duration: 0.5,
+            risk: "Muy Bajo",
+            monthlyInvestment: "$2,500",
+          },
+        ])
+      } catch (err) {
+        console.error("Error al cargar recomendaciones:", err)
+        setError("No se pudieron cargar las recomendaciones. Por favor, intenta de nuevo más tarde.")
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    loadData()
+  }, [])
 
   const getRecommendationColor = (rec: string) => {
     switch (rec) {
