@@ -1,112 +1,120 @@
 "use client"
 
 import { useState } from "react"
-import { ArrowLeft, TrendingUp, TrendingDown, Shield, AlertTriangle, Star } from "lucide-react"
+import { ArrowLeft, TrendingUp, TrendingDown, Shield, AlertTriangle, Star, PiggyBank, Clock } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 
-// Datos simulados de acciones argentinas
+// Datos simulados de acciones argentinas para principiantes
 const stocksData = [
   {
-    symbol: "GGAL",
-    name: "Grupo Financiero Galicia",
-    price: 285.5,
-    change: 12.3,
-    changePercent: 4.51,
+    symbol: "CEDEAR AAPL",
+    name: "Apple Inc.",
+    price: 12500.5,
+    change: 125.3,
+    changePercent: 1.01,
     recommendation: "COMPRAR",
-    confidence: 89,
-    sector: "Financiero",
-    risk: "Medio",
-    targetPrice: 320.0,
+    confidence: 92,
+    sector: "Tecnología",
+    risk: "Bajo",
+    targetPrice: 13200.0,
+    monthlyInvestment: "$1,000",
   },
   {
-    symbol: "YPFD",
-    name: "YPF S.A.",
-    price: 1250.0,
-    change: -25.5,
-    changePercent: -2.0,
-    recommendation: "MANTENER",
-    confidence: 72,
-    sector: "Energía",
-    risk: "Alto",
-    targetPrice: 1300.0,
+    symbol: "CEDEAR MSFT",
+    name: "Microsoft Corporation",
+    price: 11250.0,
+    change: 85.5,
+    changePercent: 0.76,
+    recommendation: "COMPRAR",
+    confidence: 90,
+    sector: "Tecnología",
+    risk: "Bajo",
+    targetPrice: 12000.0,
+    monthlyInvestment: "$1,000",
   },
   {
-    symbol: "PAMP",
-    name: "Pampa Energía",
-    price: 890.75,
+    symbol: "CEDEAR KO",
+    name: "Coca-Cola Company",
+    price: 6890.75,
     change: 45.25,
-    changePercent: 5.35,
+    changePercent: 0.66,
     recommendation: "COMPRAR",
     confidence: 85,
-    sector: "Energía",
-    risk: "Medio",
-    targetPrice: 980.0,
-  },
-  {
-    symbol: "TECO2",
-    name: "Telecom Argentina",
-    price: 425.3,
-    change: 8.7,
-    changePercent: 2.09,
-    recommendation: "COMPRAR",
-    confidence: 78,
-    sector: "Telecomunicaciones",
+    sector: "Consumo",
     risk: "Bajo",
-    targetPrice: 465.0,
+    targetPrice: 7200.0,
+    monthlyInvestment: "$800",
   },
   {
-    symbol: "MIRG",
-    name: "Mirgor S.A.C.I.F.I.A.",
-    price: 2150.0,
-    change: -85.0,
-    changePercent: -3.8,
-    recommendation: "VENDER",
-    confidence: 82,
-    sector: "Tecnología",
-    risk: "Alto",
-    targetPrice: 1950.0,
+    symbol: "CEDEAR PG",
+    name: "Procter & Gamble",
+    price: 8425.3,
+    change: 28.7,
+    changePercent: 0.34,
+    recommendation: "MANTENER",
+    confidence: 78,
+    sector: "Consumo",
+    risk: "Bajo",
+    targetPrice: 8600.0,
+    monthlyInvestment: "$800",
+  },
+  {
+    symbol: "CEDEAR JNJ",
+    name: "Johnson & Johnson",
+    price: 7150.0,
+    change: -25.0,
+    changePercent: -0.35,
+    recommendation: "MANTENER",
+    confidence: 75,
+    sector: "Salud",
+    risk: "Bajo",
+    targetPrice: 7300.0,
+    monthlyInvestment: "$700",
   },
 ]
 
-// Datos simulados de bonos argentinos
+// Datos simulados de bonos argentinos para principiantes
 const bondsData = [
   {
-    symbol: "AL30",
-    name: "Bonos República Argentina USD 2030",
-    price: 45.25,
-    change: 1.15,
-    changePercent: 2.61,
+    symbol: "TX26",
+    name: "Bono del Tesoro 2026",
+    price: 98.25,
+    change: 0.15,
+    changePercent: 0.15,
     recommendation: "COMPRAR",
-    confidence: 75,
-    yield: 18.5,
-    duration: 6.2,
-    risk: "Alto",
+    confidence: 88,
+    yield: 8.5,
+    duration: 2.5,
+    risk: "Medio-Bajo",
+    monthlyInvestment: "$1,500",
   },
   {
-    symbol: "GD30",
-    name: "Bonos República Argentina USD 2030",
-    price: 44.8,
-    change: 0.95,
-    changePercent: 2.17,
+    symbol: "TO23",
+    name: "Bono del Tesoro 2023",
+    price: 99.8,
+    change: 0.05,
+    changePercent: 0.05,
     recommendation: "COMPRAR",
-    confidence: 73,
-    yield: 18.8,
-    duration: 6.2,
-    risk: "Alto",
+    confidence: 92,
+    yield: 7.2,
+    duration: 0.8,
+    risk: "Bajo",
+    monthlyInvestment: "$2,000",
   },
   {
-    symbol: "AL35",
-    name: "Bonos República Argentina USD 2035",
-    price: 38.9,
-    change: -0.45,
-    changePercent: -1.14,
-    recommendation: "MANTENER",
-    confidence: 68,
-    yield: 21.2,
-    duration: 8.5,
-    risk: "Muy Alto",
+    symbol: "LECAP",
+    name: "Letras Capitalizables",
+    price: 99.9,
+    change: 0.02,
+    changePercent: 0.02,
+    recommendation: "COMPRAR",
+    confidence: 95,
+    yield: 6.8,
+    duration: 0.5,
+    risk: "Muy Bajo",
+    monthlyInvestment: "$2,500",
   },
 ]
 
@@ -116,56 +124,54 @@ export default function RecomendacionesPage() {
   const getRecommendationColor = (rec: string) => {
     switch (rec) {
       case "COMPRAR":
-        return "bg-green-500/20 text-green-400 border-green-500/30"
+        return "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 border-green-200 dark:border-green-800"
       case "MANTENER":
-        return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30"
+        return "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400 border-yellow-200 dark:border-yellow-800"
       case "VENDER":
-        return "bg-red-500/20 text-red-400 border-red-500/30"
+        return "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400 border-red-200 dark:border-red-800"
       default:
-        return "bg-gray-500/20 text-gray-400 border-gray-500/30"
+        return "bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400 border-gray-200 dark:border-gray-700"
     }
   }
 
   const getRiskColor = (risk: string) => {
     switch (risk) {
+      case "Muy Bajo":
+        return "text-green-600 dark:text-green-400"
       case "Bajo":
-        return "text-green-400"
+        return "text-green-600 dark:text-green-400"
+      case "Medio-Bajo":
+        return "text-yellow-600 dark:text-yellow-400"
       case "Medio":
-        return "text-yellow-400"
+        return "text-yellow-600 dark:text-yellow-400"
       case "Alto":
-        return "text-orange-400"
+        return "text-orange-600 dark:text-orange-400"
       case "Muy Alto":
-        return "text-red-400"
+        return "text-red-600 dark:text-red-400"
       default:
-        return "text-gray-400"
+        return "text-gray-600 dark:text-gray-400"
     }
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-night via-teal/20 to-soft-white dark:from-night dark:via-night/90 dark:to-night/70 relative overflow-hidden">
-      {/* Background Effects */}
-      <div className="fixed inset-0 pointer-events-none">
-        <div className="absolute -top-1/2 -left-1/4 w-96 h-96 bg-gradient-radial from-teal/20 via-teal/5 to-transparent rounded-full blur-3xl" />
-        <div className="absolute top-1/4 -right-1/4 w-80 h-80 bg-gradient-radial from-orange/15 via-orange/3 to-transparent rounded-full blur-3xl" />
-      </div>
-
+    <div className="min-h-screen bg-white dark:bg-gray-950">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-white/10 dark:bg-black/20 border-b border-white/20 dark:border-white/10">
+      <header className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-950 border-b border-gray-200 dark:border-gray-800">
         <div className="container mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <Link href="/">
               <Button
                 variant="ghost"
                 size="sm"
-                className="text-night dark:text-white hover:bg-white/10 dark:hover:bg-black/20"
+                className="text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
                 Volver
               </Button>
             </Link>
             <div className="flex items-center space-x-2">
-              <TrendingUp className="w-8 h-8 text-teal" />
-              <span className="text-xl font-semibold text-night dark:text-white">ArgentaAI</span>
+              <PiggyBank className="w-6 h-6 text-blue-600" />
+              <span className="text-xl font-semibold text-gray-900 dark:text-white">ArgentaAI</span>
             </div>
           </div>
         </div>
@@ -176,36 +182,36 @@ export default function RecomendacionesPage() {
         <div className="container mx-auto max-w-7xl">
           {/* Page Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl md:text-5xl font-semibold text-night dark:text-white mb-4">
-              Recomendaciones <span className="text-teal">IA</span>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4">
+              Recomendaciones para principiantes
             </h1>
-            <p className="text-xl text-night/70 dark:text-white/70 max-w-3xl mx-auto">
-              Análisis en tiempo real de los mejores activos argentinos con inteligencia artificial explicable
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+              Opciones simples y seguras para comenzar a invertir con montos pequeños cada mes
             </p>
           </div>
 
           {/* Tabs */}
           <div className="flex justify-center mb-8">
-            <div className="glass-card p-2 flex space-x-2">
+            <div className="bg-gray-100 dark:bg-gray-800 p-1 rounded-lg flex space-x-1">
               <Button
                 variant={activeTab === "acciones" ? "default" : "ghost"}
                 onClick={() => setActiveTab("acciones")}
                 className={`px-6 py-2 ${
                   activeTab === "acciones"
-                    ? "bg-teal text-white"
-                    : "text-night dark:text-white hover:bg-white/10 dark:hover:bg-black/20"
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                 }`}
               >
                 <TrendingUp className="w-4 h-4 mr-2" />
-                Acciones
+                CEDEARs
               </Button>
               <Button
                 variant={activeTab === "bonos" ? "default" : "ghost"}
                 onClick={() => setActiveTab("bonos")}
                 className={`px-6 py-2 ${
                   activeTab === "bonos"
-                    ? "bg-teal text-white"
-                    : "text-night dark:text-white hover:bg-white/10 dark:hover:bg-black/20"
+                    ? "bg-blue-600 text-white"
+                    : "text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700"
                 }`}
               >
                 <Shield className="w-4 h-4 mr-2" />
@@ -219,20 +225,27 @@ export default function RecomendacionesPage() {
             <div className="grid gap-6">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {stocksData.map((stock) => (
-                  <div key={stock.symbol} className="recommendation-card">
+                  <div
+                    key={stock.symbol}
+                    className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6 hover:shadow-md transition-shadow"
+                  >
                     <div className="flex justify-between items-start mb-4">
                       <div>
-                        <h3 className="text-xl font-semibold text-night dark:text-white">{stock.symbol}</h3>
-                        <p className="text-sm text-night/60 dark:text-white/60">{stock.name}</p>
-                        <p className="text-xs text-night/50 dark:text-white/50">{stock.sector}</p>
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{stock.symbol}</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{stock.name}</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-500">{stock.sector}</p>
                       </div>
                       <Badge className={getRecommendationColor(stock.recommendation)}>{stock.recommendation}</Badge>
                     </div>
 
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-2xl font-bold text-night dark:text-white">${stock.price.toFixed(2)}</span>
-                        <div className={`flex items-center ${stock.change >= 0 ? "text-green-400" : "text-red-400"}`}>
+                        <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                          ${stock.price.toLocaleString("es-AR")}
+                        </span>
+                        <div
+                          className={`flex items-center ${stock.change >= 0 ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}
+                        >
                           {stock.change >= 0 ? (
                             <TrendingUp className="w-4 h-4 mr-1" />
                           ) : (
@@ -247,18 +260,18 @@ export default function RecomendacionesPage() {
 
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
-                          <span className="text-night/60 dark:text-white/60">Precio objetivo:</span>
-                          <p className="font-medium text-night dark:text-white">${stock.targetPrice.toFixed(2)}</p>
+                          <span className="text-gray-500 dark:text-gray-400">Inversión mensual:</span>
+                          <p className="font-medium text-gray-900 dark:text-white">{stock.monthlyInvestment}</p>
                         </div>
                         <div>
-                          <span className="text-night/60 dark:text-white/60">Confianza:</span>
+                          <span className="text-gray-500 dark:text-gray-400">Confianza:</span>
                           <div className="flex items-center">
-                            <Star className="w-3 h-3 text-yellow-400 mr-1" />
-                            <span className="font-medium text-night dark:text-white">{stock.confidence}%</span>
+                            <Star className="w-3 h-3 text-yellow-500 mr-1" />
+                            <span className="font-medium text-gray-900 dark:text-white">{stock.confidence}%</span>
                           </div>
                         </div>
                         <div>
-                          <span className="text-night/60 dark:text-white/60">Riesgo:</span>
+                          <span className="text-gray-500 dark:text-gray-400">Riesgo:</span>
                           <p className={`font-medium ${getRiskColor(stock.risk)}`}>{stock.risk}</p>
                         </div>
                       </div>
@@ -274,19 +287,26 @@ export default function RecomendacionesPage() {
             <div className="grid gap-6">
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {bondsData.map((bond) => (
-                  <div key={bond.symbol} className="recommendation-card">
+                  <div
+                    key={bond.symbol}
+                    className="bg-white dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800 shadow-sm p-6 hover:shadow-md transition-shadow"
+                  >
                     <div className="flex justify-between items-start mb-4">
                       <div>
-                        <h3 className="text-xl font-semibold text-night dark:text-white">{bond.symbol}</h3>
-                        <p className="text-sm text-night/60 dark:text-white/60">{bond.name}</p>
+                        <h3 className="text-xl font-semibold text-gray-900 dark:text-white">{bond.symbol}</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-400">{bond.name}</p>
                       </div>
                       <Badge className={getRecommendationColor(bond.recommendation)}>{bond.recommendation}</Badge>
                     </div>
 
                     <div className="space-y-3">
                       <div className="flex justify-between items-center">
-                        <span className="text-2xl font-bold text-night dark:text-white">${bond.price.toFixed(2)}</span>
-                        <div className={`flex items-center ${bond.change >= 0 ? "text-green-400" : "text-red-400"}`}>
+                        <span className="text-2xl font-bold text-gray-900 dark:text-white">
+                          ${bond.price.toFixed(2)}
+                        </span>
+                        <div
+                          className={`flex items-center ${bond.change >= 0 ? "text-green-600 dark:text-green-400" : "text-red-600 dark:text-red-400"}`}
+                        >
                           {bond.change >= 0 ? (
                             <TrendingUp className="w-4 h-4 mr-1" />
                           ) : (
@@ -301,22 +321,19 @@ export default function RecomendacionesPage() {
 
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
-                          <span className="text-night/60 dark:text-white/60">Rendimiento:</span>
-                          <p className="font-medium text-teal">{bond.yield.toFixed(1)}%</p>
+                          <span className="text-gray-500 dark:text-gray-400">Rendimiento:</span>
+                          <p className="font-medium text-blue-600">{bond.yield.toFixed(1)}%</p>
                         </div>
                         <div>
-                          <span className="text-night/60 dark:text-white/60">Duración:</span>
-                          <p className="font-medium text-night dark:text-white">{bond.duration} años</p>
+                          <span className="text-gray-500 dark:text-gray-400">Duración:</span>
+                          <p className="font-medium text-gray-900 dark:text-white">{bond.duration} años</p>
                         </div>
                         <div>
-                          <span className="text-night/60 dark:text-white/60">Confianza:</span>
-                          <div className="flex items-center">
-                            <Star className="w-3 h-3 text-yellow-400 mr-1" />
-                            <span className="font-medium text-night dark:text-white">{bond.confidence}%</span>
-                          </div>
+                          <span className="text-gray-500 dark:text-gray-400">Inversión mensual:</span>
+                          <p className="font-medium text-gray-900 dark:text-white">{bond.monthlyInvestment}</p>
                         </div>
                         <div>
-                          <span className="text-night/60 dark:text-white/60">Riesgo:</span>
+                          <span className="text-gray-500 dark:text-gray-400">Riesgo:</span>
                           <p className={`font-medium ${getRiskColor(bond.risk)}`}>{bond.risk}</p>
                         </div>
                       </div>
@@ -327,11 +344,33 @@ export default function RecomendacionesPage() {
             </div>
           )}
 
+          {/* Beginner's Guide */}
+          <div className="mt-16 bg-blue-50 dark:bg-blue-900/20 rounded-xl p-8">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-6">
+              <div className="bg-blue-100 dark:bg-blue-800/30 p-4 rounded-full">
+                <Clock className="w-8 h-8 text-blue-600 dark:text-blue-400" />
+              </div>
+              <div>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">Guía para principiantes</h3>
+                <p className="text-gray-700 dark:text-gray-300 mb-4">
+                  Recomendamos comenzar con inversiones pequeñas y regulares. Invertir una cantidad fija cada mes te
+                  ayuda a promediar el costo de tus inversiones y reducir el impacto de la volatilidad del mercado.
+                </p>
+                <Button
+                  variant="outline"
+                  className="border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20"
+                >
+                  Ver tutorial completo
+                </Button>
+              </div>
+            </div>
+          </div>
+
           {/* Disclaimer */}
-          <div className="mt-12 p-6 glass-card">
+          <div className="mt-12 p-6 bg-gray-50 dark:bg-gray-900 rounded-xl border border-gray-200 dark:border-gray-800">
             <div className="flex items-start space-x-3">
-              <AlertTriangle className="w-5 h-5 text-orange-400 mt-0.5 flex-shrink-0" />
-              <div className="text-sm text-night/70 dark:text-white/70">
+              <AlertTriangle className="w-5 h-5 text-yellow-500 mt-0.5 flex-shrink-0" />
+              <div className="text-sm text-gray-600 dark:text-gray-400">
                 <p className="font-medium mb-2">Aviso Importante - CNV</p>
                 <p>
                   Las recomendaciones presentadas son generadas por inteligencia artificial y no constituyen
